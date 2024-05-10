@@ -21,7 +21,7 @@ startButton.addEventListener('click', () => {
         nameDisplay.textContent = `Olá ${userName}, autorizado(a) pelo professor !`
         updateUsageCount()
     }
-});
+})
 
 function startTimer() {
     startTime = new Date().getTime()
@@ -31,7 +31,7 @@ function startTimer() {
         const minutes = Math.floor(timeElapsed / 60000)
         const seconds = Math.floor((timeElapsed % 60000) / 1000)
         counterDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-        if (timeElapsed >= 180000) {
+        if (timeElapsed >= 300000) {
             clearInterval(timer)
             timer = null
             counterDisplay.textContent = '00:00'
@@ -54,11 +54,11 @@ function updateUsageCount() {
 // parte para resetar o contador
 setInterval(() => {
     const now = new Date()
-    const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+    const yesterday = new Date(now.getTime() - 12 * 60 * 60 * 1000)
     Object.keys(usageCount).forEach((userName) => {
         if (new Date(usageCount[userName].lastUsed) < yesterday) {
             delete usageCount[userName]
         }
     })
     localStorage.setItem('usageCount', JSON.stringify(usageCount))
-}, 24 * 60 * 60 * 1000)
+}, 12 * 60 * 60 * 1000)
